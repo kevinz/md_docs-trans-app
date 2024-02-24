@@ -73,6 +73,12 @@ class NestedContainer(Generic[T], Container[T]):
     def __str__(self) -> str:  # pragma: no cover
         return ''.join(map(str, self.nested_children))
 
+@blocks_registry.register
+class MetaBlock(BaseBlock):
+    content: str
+
+    def __str__(self) -> str:
+        return f'---\n{self.content}\n---'
 
 @blocks_registry.register
 class Paragraph(Container[BaseBlock]):
@@ -112,6 +118,7 @@ class LinkBlock(Container[BaseBlock]):
 
 @blocks_registry.register
 class ImageBlock(BaseBlock):
+    TRANSLATABLE = False
     url: str
     alt: str = pydantic.Field(default=str)
     title: Optional[str] = None
@@ -161,7 +168,7 @@ class CodeBlock(BaseBlock):
     def __str__(self) -> str:
         lang = self.language or ''
         return f'```{lang}\n{self.code}\n```'
-
+    
 
 @blocks_registry.register
 class HtmlBlock(BaseBlock):

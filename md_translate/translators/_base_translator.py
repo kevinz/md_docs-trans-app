@@ -6,7 +6,7 @@ if TYPE_CHECKING:
 
 
 class BaseTranslatorProtocol(Protocol):  # pragma: no cover
-    def translate(self, *, text: str) -> str:
+    def translate(self, *, text: str, split_sentences: bool = False) -> str:
         ...
 
 
@@ -24,5 +24,5 @@ class BaseTranslator(BaseTranslatorProtocol, metaclass=abc.ABCMeta):  # pragma: 
         ...
 
     @abc.abstractmethod
-    def translate(self, *, text: str) -> str:
+    def translate(self, *, text: str, split_sentences: bool = False) -> str:
         ...

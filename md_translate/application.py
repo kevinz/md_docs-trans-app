@@ -4,6 +4,7 @@ from pathlib import Path
 from typing import TYPE_CHECKING
 
 import click
+import os
 
 from md_translate.document import MarkdownDocument
 from md_translate.exceptions import NoMdFilesFound, NoTargetFileFound
@@ -19,6 +20,13 @@ class Application:
 
     def run(self) -> int:
         self._set_logging_level()
+        print("glossary_id:", os.environ.get('GLOSSARY_ID'))
+        print("split_sentences:", os.environ.get('split_sentences'))
+        print("preserve_format:", os.environ.get('preserve_format'))
+        print("ign_tags:", os.environ.get('ign_tags'))
+        print("tag_handle:", os.environ.get('tag_handle'))
+        print("https_proxy:", os.environ.get('https_proxy'))
+
         if self._settings.processes == 1:
             self.run_single_process()
             return 0

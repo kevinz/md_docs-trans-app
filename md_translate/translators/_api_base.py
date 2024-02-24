@@ -29,12 +29,12 @@ class APIBaseTranslator(BaseTranslator):
     def __exit__(self, *args: Any, **kwargs: Any) -> None:
         self._session.close()
 
-    def translate(self, *, text: str) -> str:
-        response = self.make_request(text=text)
+    def translate(self, *, text: str, split_sentences: bool) -> str:
+        response = self.make_request(text=text, split_sentences=split_sentences)
         return self.get_translated_data(response)
 
     @abc.abstractmethod
-    def make_request(self, *, text: str) -> requests.Response:
+    def make_request(self, *, text: str, split_sentences: bool) -> requests.Response:
         ...
 
     @abc.abstractmethod
